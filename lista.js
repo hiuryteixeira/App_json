@@ -2,16 +2,18 @@ const url = 'https://dados.ifpb.edu.br/dataset/e99b5cfd-f2f3-4b54-bb4f-6ddd9e480
 const axios = require('axios')
 
 const area = f => f.area_conhecimento === 'ENGENHARIA ELE\u0301TRICA' // filtar por contador
+
 //const resumo = f => f.resumo === 'Modalidade local'
-//const justificativa = f => f.justificativa === 'Nada consta' // O IGUAL E EXATAMENTE IGUAL  FILTRA APOSENTADO
+const justificativa = f => f.justificativa === 'Nada consta' // O IGUAL E EXATAMENTE IGUAL  FILTRA APOSENTADO
+const titulos = f => f.titulo === 'Equipe Calango' // O IGUAL E EXATAMENTE IGUAL  FILTRA APOSENTADO
 
 
 
 axios.get(url).then(resposta => {
     const servidores = resposta.data
     module.exports.resultado =
-    servidores.filter(area)//filter(resumo).filter(justificativa)
+    servidores.filter(titulos).filter(area).filter(justificativa)
 
-    // const resultado_filtro = servidores.filter(area)//.filter(resumo).filter(justificativa)
-    // console.log(resultado_filtro)
+    const resultado_filtro = servidores.filter(titulos).filter(area).filter(justificativa)//.filter(resumo).filter(justificativa)
+    //console.log(resultado_filtro)
 })
